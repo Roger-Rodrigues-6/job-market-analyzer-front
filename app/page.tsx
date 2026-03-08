@@ -16,10 +16,11 @@ export default function Home() {
   const [location,setLocation] = useState("")
   const [period,setPeriod] = useState("24h")
   const [remote,setRemote] = useState("remote")
-  const [english,setEnglish] = useState(false)
+  const [english,setEnglish] = useState("include")
 
   const [includeSkills,setIncludeSkills] = useState<string[]>([])
   const [excludeSkills,setExcludeSkills] = useState<string[]>([])
+  const [excludeCompanies,setExcludeCompanies] = useState<string[]>([])
 
   const resultRef = useRef<HTMLDivElement>(null)
 
@@ -29,7 +30,18 @@ export default function Home() {
 
     try{
 
-      const res = await fetch("http://127.0.0.1:8000/search")
+      const params = new URLSearchParams({
+        q: query,
+        include: includeSkills.join(","),
+        exclude: excludeSkills.join(","),
+        exclude_companies: excludeCompanies.join(","),
+        location: location,
+        period: period,
+        remote: remote,
+        english: english
+      })
+
+      const res = await fetch(`http://127.0.0.1:8000/search?${params}`)
       const json = await res.json()
 
       setData(json)
@@ -54,8 +66,6 @@ export default function Home() {
 
     <main className="min-h-screen bg-gray-50">
 
-      {/* HEADER */}
-
       <header className="bg-white border-b border-gray-200">
 
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -71,8 +81,6 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto p-4 space-y-6">
 
-
-        {/* FORM */}
 
         <Card>
 
@@ -100,14 +108,20 @@ export default function Home() {
               variant="exclude"
             />
 
+            <TagInput
+              label="Excluir empresas"
+              tags={excludeCompanies}
+              setTags={setExcludeCompanies}
+              placeholder="ex: bairesdev"
+              variant="exclude"
+            />
+
             <Input
               label="Localidade"
               value={location}
               placeholder="ex: Brasil"
               onChange={setLocation}
             />
-
-            {/* DATA */}
 
             <div>
 
@@ -127,9 +141,6 @@ export default function Home() {
               </select>
 
             </div>
-
-
-            {/* MODALIDADE */}
 
             <div>
 
@@ -152,20 +163,31 @@ export default function Home() {
             </div>
 
 
-            {/* INGLES */}
+            <div>
 
-            <div className="flex items-center">
+              <label className="label-base">
+                Inglês
+              </label>
 
-              <input
-                type="checkbox"
-                checked={english}
-                onChange={()=>setEnglish(!english)}
-                className="mr-2 accent-purple-600"
-              />
+              <select
+                className="input-base"
+                value={english}
+                onChange={(e)=>setEnglish(e.target.value)}
+              >
 
-              <span className="text-sm text-gray-800">
-                Aceita vagas com exigência de inglês
-              </span>
+                <option value="include">
+                  Incluir vagas com inglês
+                </option>
+
+                <option value="only">
+                  Buscar apenas vagas em inglês
+                </option>
+
+                <option value="exclude">
+                  Remover vagas com inglês
+                </option>
+
+              </select>
 
             </div>
 
@@ -182,14 +204,9 @@ export default function Home() {
         </Card>
 
 
-
-        {/* RESULTADOS */}
-
         {data && (
 
           <div ref={resultRef} className="space-y-6">
-
-            {/* RESUMO */}
 
             <Card>
 
@@ -199,13 +216,8 @@ export default function Home() {
 
             </Card>
 
-
-            {/* GRID RESULTADOS */}
-
             <div className="grid md:grid-cols-3 gap-6">
 
-
-              {/* VAGAS */}
 
               <div className="md:col-span-2">
 
@@ -226,9 +238,6 @@ export default function Home() {
                 </Card>
 
               </div>
-
-
-              {/* ANALISE */}
 
               <div>
 
