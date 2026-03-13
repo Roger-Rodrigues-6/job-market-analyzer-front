@@ -30,18 +30,33 @@ export default function Home() {
 
     try{
 
-      const params = new URLSearchParams({
-        q: query,
-        include: includeSkills.join(","),
-        exclude: excludeSkills.join(","),
-        exclude_companies: excludeCompanies.join(","),
-        location: location,
-        period: period,
-        remote: remote,
-        english: english
-      })
+      const params = new URLSearchParams()
+
+      if(query) params.append("q",query)
+
+      if(includeSkills.length)
+        params.append("include",includeSkills.join(","))
+
+      if(excludeSkills.length)
+        params.append("exclude",excludeSkills.join(","))
+
+      if(excludeCompanies.length)
+        params.append("exclude_companies",excludeCompanies.join(","))
+
+      if(location)
+        params.append("location",location)
+
+      if(period)
+        params.append("period",period)
+
+      if(remote)
+        params.append("remote",remote)
+
+      if(english)
+        params.append("english",english)
 
       const res = await fetch(`http://127.0.0.1:8000/search?${params}`)
+
       const json = await res.json()
 
       setData(json)
@@ -211,7 +226,7 @@ export default function Home() {
             <Card>
 
               <h2 className="text-lg font-semibold text-gray-900">
-                {data.total_jobs} vagas encontradas
+                {data.total_jobs || 0} vagas encontradas
               </h2>
 
             </Card>
@@ -229,7 +244,7 @@ export default function Home() {
 
                   <ul className="space-y-4">
 
-                    {data.jobs.map((job:any,index:number)=>(
+                    {(data.jobs || []).map((job:any,index:number)=>(
                       <JobCard key={index} job={job}/>
                     ))}
 
@@ -238,6 +253,7 @@ export default function Home() {
                 </Card>
 
               </div>
+
 
               <div>
 
@@ -248,7 +264,7 @@ export default function Home() {
                   </h3>
 
                   <p className="text-gray-700 mb-4">
-                    {data.summary}
+                    {data.summary || ""}
                   </p>
 
                   <h4 className="font-semibold mb-2">
@@ -257,7 +273,7 @@ export default function Home() {
 
                   <ul className="text-sm space-y-1">
 
-                    {data.skills.map((skill:any)=>(
+                    {(data.skills || []).map((skill:any)=>(
                       <li key={skill.name}>
                         {skill.name} - {skill.count}
                       </li>
