@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Input from "@/components/Input"
 import TagInput from "@/components/TagInput"
 import Button from "@/components/ui/Button"
@@ -24,11 +24,60 @@ export default function Home() {
 
   const resultRef = useRef<HTMLDivElement>(null)
 
+  // =============================
+  // LOAD SAVED SEARCH
+  // =============================
+
+  useEffect(() => {
+
+    const saved = localStorage.getItem("job_search")
+
+    if(!saved) return
+
+    try{
+
+      const data = JSON.parse(saved)
+
+      setQuery(data.query || "")
+      setLocation(data.location || "")
+      setPeriod(data.period || "24h")
+      setRemote(data.remote || "remote")
+      setEnglish(data.english || "include")
+
+      setIncludeSkills(data.includeSkills || [])
+      setExcludeSkills(data.excludeSkills || [])
+      setExcludeCompanies(data.excludeCompanies || [])
+
+    }catch(err){
+      console.error("Erro ao carregar busca salva",err)
+    }
+
+  }, [])
+
+  // =============================
+  // SEARCH
+  // =============================
+
   const search = async () => {
 
     setLoading(true)
 
     try{
+
+      // salva filtros
+      localStorage.setItem(
+        "job_search",
+        JSON.stringify({
+          query,
+          location,
+          period,
+          remote,
+          english,
+          includeSkills,
+          excludeSkills,
+          excludeCompanies
+        })
+      )
 
       const params = new URLSearchParams()
 
