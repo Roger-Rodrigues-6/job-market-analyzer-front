@@ -1,21 +1,23 @@
-const API_URL = "https://job-market-analyzer-backend.onrender.com";
+import { fetchSafe } from "@/lib/api"
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
+if (!API_URL) {
+  throw new Error("API_URL não definida")
+}
 
 export async function searchJobs(params: {
-  q?: string;
-  include?: string;
-  exclude?: string;
-  location?: string;
-  remote?: string;
+  q?: string
+  include?: string
+  exclude?: string
+  location?: string
+  remote?: string
+  period?: string
+  english?: string
 }) {
-  const query = new URLSearchParams(params as any).toString();
+  const query = new URLSearchParams(params as any).toString()
 
-  const res = await fetch(`${API_URL}/search?${query}`, {
-    cache: "no-store",
-  });
+  const url = `${API_URL}/search?${query}`
 
-  if (!res.ok) {
-    throw new Error("Erro ao buscar vagas");
-  }
-
-  return res.json();
+  return fetchSafe(url)
 }

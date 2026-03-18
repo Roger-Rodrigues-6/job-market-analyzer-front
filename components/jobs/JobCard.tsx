@@ -11,8 +11,9 @@ export default function JobCard({ job }: any) {
         <div className="space-y-2">
 
           <a
-            href={job.link}
+            href={job.job_url}
             target="_blank"
+            rel="noopener noreferrer"
             className="text-purple-700 font-semibold hover:underline"
           >
             {job.title}

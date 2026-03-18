@@ -24,10 +24,6 @@ export default function Home() {
 
   const resultRef = useRef<HTMLDivElement>(null)
 
-  // =============================
-  // LOAD SAVED SEARCH
-  // =============================
-
   useEffect(() => {
 
     const saved = localStorage.getItem("job_search")
@@ -54,17 +50,18 @@ export default function Home() {
 
   }, [])
 
-  // =============================
-  // SEARCH
-  // =============================
-
   const search = async () => {
 
     setLoading(true)
 
     try{
 
-      // salva filtros
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+      if(!baseUrl){
+        throw new Error("API não configurada")
+      }
+
       localStorage.setItem(
         "job_search",
         JSON.stringify({
@@ -104,7 +101,11 @@ export default function Home() {
       if(english)
         params.append("english",english)
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?${params}`)
+      const res = await fetch(`${baseUrl}/search?${params}`)
+
+      if(!res.ok){
+        throw new Error("Erro na API")
+      }
 
       const json = await res.json()
 
