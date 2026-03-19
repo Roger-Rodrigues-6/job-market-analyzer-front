@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Job Market Analyzer
+
+A tool designed to understand the job market through real data — turning job searches into clear, actionable insights.
+
+---
+
+## The Problem
+
+Applying for jobs today is often frustrating:
+
+- You find roles that seem like a perfect fit but get no response  
+- It is unclear what the market is actually looking for  
+- You do not know which skills truly make a difference  
+
+This is not just a developer problem — it affects anyone navigating the job market.
+
+---
+
+## The Idea
+
+This project proposes a shift:
+
+Instead of just applying for jobs, understand the market first.
+
+The platform helps users:
+
+- Search job opportunities  
+- Identify the most demanded skills  
+- Compare market demand vs user behavior  
+- Transform raw data into meaningful insights  
+
+---
+
+## Current Features
+
+### Job Search
+
+- Search by role, skills, and location  
+- Include or exclude specific skills and companies  
+- Filters:
+  - Work mode (remote, hybrid, onsite)
+  - Time range
+  - Language  
+
+---
+
+### Analysis Dashboard
+
+- Skills distribution visualization  
+- Market vs search comparison  
+- Contextual analysis explaining the data  
+
+---
+
+### Product Experience
+
+- Simple navigation (Search ↔ Analysis)
+- Clean and intuitive interface
+- Focus on clarity over complexity
+- Designed for exploration, not just querying
+
+---
+
+## How It Was Designed
+
+The goal is not to build another job board.
+
+It is to create a system that translates the job market into decisions.
+
+The architecture supports:
+
+- Market snapshots over time  
+- Skill extraction from job listings  
+- User behavior tracking  
+- Data-driven comparisons  
+
+---
+
+## Core Differentiator
+
+Skills gap analysis.
+
+The platform highlights the gap between:
+
+- What the market demands  
+- What users are focusing on  
+
+This reveals real opportunities for improvement.
+
+---
+
+## What’s Coming Next
+
+Already in progress:
+
+### AI Features
+
+- Resume analysis  
+- Personalized skill recommendations  
+- AI-generated insights based on real market data  
+- Automated analytical reports  
+
+Example:
+
+"Your profile is 60% aligned with Backend roles. Improving Docker and AWS would significantly increase your opportunities."
+
+---
+
+## Product Vision
+
+The goal is to evolve into a data-driven career assistant for anyone navigating the job market.
+
+---
+
+## Tech Stack
+
+- Next.js  
+- React  
+- TypeScript  
+- Recharts  
+- Node.js (backend in progress)  
+- Relational database structured for analytics  
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm run build
+npm start

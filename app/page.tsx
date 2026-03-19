@@ -152,7 +152,7 @@ export default function Home() {
             <Input
               label="Cargo ou habilidades"
               value={query}
-              placeholder="ex: react remoto"
+              placeholder="ex: Desenvolvedor web"
               onChange={setQuery}
             />
 
@@ -160,14 +160,14 @@ export default function Home() {
               label="Incluir habilidades"
               tags={includeSkills}
               setTags={setIncludeSkills}
-              placeholder="digite e pressione enter"
+              placeholder="Digite e pressione enter e digite outra | ex: Python"
             />
 
             <TagInput
               label="Excluir habilidades"
               tags={excludeSkills}
               setTags={setExcludeSkills}
-              placeholder="digite e pressione enter"
+              placeholder="Digite e pressione enter e digite outra | ex: Java"
               variant="exclude"
             />
 
@@ -175,14 +175,14 @@ export default function Home() {
               label="Excluir empresas"
               tags={excludeCompanies}
               setTags={setExcludeCompanies}
-              placeholder="ex: bairesdev"
+              placeholder="Digite e pressione enter e digite outra | ex: Nome de uma empresa"
               variant="exclude"
             />
 
             <Input
               label="Localidade"
               value={location}
-              placeholder="ex: Brasil"
+              placeholder="ex: Brasil ou sua cidade ou estado"
               onChange={setLocation}
             />
 
